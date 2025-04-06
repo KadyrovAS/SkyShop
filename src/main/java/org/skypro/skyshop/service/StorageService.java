@@ -6,6 +6,7 @@ import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
 import org.skypro.skyshop.model.search.Searchable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Component
 public class StorageService{
     private final Map<UUID, Product> productMap;
     private final Map<UUID, Article> articleMap;
@@ -30,7 +32,7 @@ public class StorageService{
         return articleMap.values();
     }
 
-    private Map<UUID, Article> getArticleMap() {
+    public Map<UUID, Article> getArticleMap() {
         Map<UUID, Article> articleMap = new HashMap<>();
         UUID id;
 
@@ -47,7 +49,7 @@ public class StorageService{
         return articleMap;
     }
 
-    private Map<UUID, Product> getProductMap() {
+    public Map<UUID, Product> getProductMap() {
         Map<UUID, Product> productMap = new HashMap<>();
         UUID id;
 
@@ -70,5 +72,9 @@ public class StorageService{
                 productMap.values().stream()
         ).collect(Collectors.toList());
         return listSearchable;
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(productMap.get(id));
     }
 }
