@@ -12,10 +12,6 @@ public class UserBasket {
     public UserBasket(List<BasketItem> basketItemList) {
         this.basketItemList = basketItemList;
         this.total = 0;
-        basketItemList
-                .forEach(
-                        value->total += value.getProduct().getPrice() * value.getCount()
-                );
     }
 
     public List<BasketItem> getBasketItemList() {
@@ -23,6 +19,11 @@ public class UserBasket {
     }
 
     public int getTotal() {
+        this.total = 0;
+        this.basketItemList
+                .forEach(
+                        value->total += value.getProduct().getPrice() * value.getCount()
+                );
         return total;
     }
 }
