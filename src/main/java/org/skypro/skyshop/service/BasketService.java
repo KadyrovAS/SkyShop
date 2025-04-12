@@ -21,7 +21,7 @@ public class BasketService {
 
     public void put(UUID id) {
         Optional<Product> product = storageService.getProductById(id);
-        if (!product.isPresent()) {
+        if (product.isEmpty()) {
             throw new NoSuchProductException("123456", "Ошибка! Такого товара нет!");
         }
         productBasket.put(id);

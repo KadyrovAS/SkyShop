@@ -15,13 +15,18 @@ import java.util.stream.Stream;
 
 @Service
 @Component
-public class StorageService{
+public class StorageService {
     private final Map<UUID, Product> productMap;
     private final Map<UUID, Article> articleMap;
 
     public StorageService() {
         this.productMap = getProductMap();
         this.articleMap = getArticleMap();
+    }
+
+    public StorageService(Map<UUID, Product> productMap, Map<UUID, Article> articleMap) {
+        this.productMap = productMap;
+        this.articleMap = articleMap;
     }
 
     public Collection<Product> getProducts() {
@@ -60,14 +65,14 @@ public class StorageService{
         id = UUID.randomUUID();
         productMap.put(id, new SimpleProduct(id, "Молоко", 120));
         id = UUID.randomUUID();
-        productMap.put(id, new SimpleProduct(id,"Сахар", 50));
+        productMap.put(id, new SimpleProduct(id, "Сахар", 50));
         id = UUID.randomUUID();
         productMap.put(id, new SimpleProduct(id, "Соль", 30));
         return productMap;
     }
 
-    public List<Searchable> getSearchable(){
-        List<Searchable>listSearchable = Stream.concat(
+    public List<Searchable> getSearchable() {
+        List<Searchable> listSearchable = Stream.concat(
                 articleMap.values().stream(),
                 productMap.values().stream()
         ).collect(Collectors.toList());
